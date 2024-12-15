@@ -68,7 +68,7 @@
                       .attr("width", width + margin.left + margin.right)
                       .attr("height", height + margin.top + margin.bottom)
                     .append("g")
-                      .attr("transform", translate(${margin.left},${margin.top}));
+                      .attr("transform", `translate(${margin.left},${margin.top})`);
 
         // Set up the scales for the x and y axes
         const x = d3.scaleBand()
@@ -97,7 +97,7 @@
            .attr("height", d => height - y(d.production))
            .on("mouseover", (event, d) => {
                tooltip.transition().duration(200).style("opacity", 0.9);
-               tooltip.html(Year: ${d.year}<br>Production: ${d.production.toFixed(2)} (10,000 tons))
+               tooltip.html(`Year: ${d.year}<br>Production: ${d.production.toFixed(2)} (10,000 tons)`)
                       .style("left", (event.pageX + 10) + "px")
                       .style("top", (event.pageY - 30) + "px");
            })
@@ -108,7 +108,7 @@
         // Add the x-axis to the chart
         svg.append("g")
            .attr("class", "x axis")
-           .attr("transform", translate(0,${height}))
+           .attr("transform", `translate(0,${height})`)
            .call(d3.axisBottom(x).tickSize(0))
            .selectAll(".tick text")
            .attr("class", "axis-label")
@@ -124,14 +124,15 @@
 
         // Add axis labels
         svg.append("text")
-           .attr("transform", translate(${width / 2},${height + margin.bottom - 5}))
+           .attr("transform", `translate(${width / 2},${height + margin.bottom - 5})`)
            .style("text-anchor", "middle");
 
         svg.append("text")
            .attr("transform", "rotate(-90)")
            .attr("y", 0 - margin.left)
            .attr("x", 0 - height / 2)
-           .style("text-anchor", "middle");
+           .style("text-anchor", "middle")
+           .text("Production (in 10,000 tons)");
     </script>
 </body>
 </html>
